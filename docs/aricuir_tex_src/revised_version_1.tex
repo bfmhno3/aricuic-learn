@@ -1,0 +1,156 @@
+%\documentclass[10pt,journal,compsoc]{IEEEtran}
+\documentclass[lettersize,journal]{IEEEtran}
+%\usepackage[style=ieee,dashed=false]{biblatex}
+\usepackage{amsmath,amsfonts}
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+\usepackage{array}
+%\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+%\usepackage{hyperref}
+\usepackage{cite}
+\usepackage[justification=centering]{caption}
+\usepackage{subcaption}
+%\usepackage{subfigure}
+\usepackage{subcaption}   % <— gives \ContinuedFloat and sub-labels
+%\captionsetup {compatibility=false}
+\usepackage{wrapfig}
+\usepackage[outdir=./]{epstopdf}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{enumitem}
+\usepackage{tabularx}  % for the X column type
+
+
+% ---------- preamble ----------
+\usepackage{tikz}          % already loads PGF
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}  % keep the key–value syntax consistent
+
+
+\usepackage{gensymb}
+%\usepackage[font=small,skip=1pt]{caption}
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{amsthm} 
+%\usepackage[]{algorithm2e}
+\usepackage[ruled,vlined]{algorithm2e}
+%\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{varwidth}
+\usepackage{blindtext}
+\usepackage{scrextend}
+\usepackage{url}
+\usepackage[outdir=./]{epstopdf}
+
+\usepackage[ruled,vlined]{algorithm2e}
+
+\usepackage[square,comma,numbers,sort]{natbib}
+
+\usepackage{mathtools}
+
+\usepackage[switch]{lineno} 
+
+
+
+\usepackage{graphicx}
+\usepackage{subcaption}   % provides \ContinuedFloat
+\captionsetup[sub]{font=small}   % op
+
+\usepackage[utf8]{inputenc}   % enables basic UTF-8
+\usepackage[T1]{fontenc}
+
+
+\renewcommand\thelinenumber{\textbf{\scriptsize\arabic{linenumber}}}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition} % definition numbers are dependent on theorem numbers
+\newtheorem{exmp}[thm]{Example} % same for example numbers
+\newtheorem{observation}[thm]{Observation}
+\newtheorem{theorem}[thm]{Theorem}
+\newtheorem{fact}[thm]{Fact}
+
+\makeatletter
+\newcommand{\circlearrow}{}% just in case
+\DeclareRobustCommand{\circlearrow}{%
+  \mathrel{\vphantom{\rightarrow}\mathpalette\circle@arrow\relax}%
+}
+\newcommand{\circle@arrow}[2]{%
+  \m@th
+  \ooalign{%
+    \hidewidth$#1\circ\mkern1mu$\hidewidth\cr
+    $#1\longrightarrow$\cr}%
+}
+\makeatother
+
+\usepackage{enumitem}
+
+\newenvironment{steps}
+ {\begin{enumerate}[label=Step \arabic*:,leftmargin=*,align=left]}
+ {\end{enumerate}}
+\newenvironment{substeps}
+ {\begin{enumerate}[label=Step \arabic{enumi}.\alph*:,leftmargin=*,align=left]}
+ {\end{enumerate}}
+
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+\begin{document}
+%\linenumbers
+
+\title{Accelerated Rotation-Invariant Convolution for UAV Image Segmentation}
+
+\author{Manduhu Manduhu, Alexander Dow, Gerard Dooly, James Riordan %~\IEEEmembership{Member,~IEEE}
+       
+\thanks{
+	Manduhu Manduhu, Alexander Dow and James Riordan are with the Drone Systems Lab, School of Computing, Engineering, and Physical Sciences, University of the West of Scotland, Glasgow, Scotland. 
+
+	Corresponding author: Manduhu Manduhu (email: manduhu.manduhu@uws.ac.uk). 
+	
+	Gerard Dooly is with the Centre for Robotics \& Intelligent Systems, Department of Electronic \& Computer Engineering, University of Limerick, Limerick, Ireland.
+	
+	}
+	%\thanks{Manuscript received April 19, 2021; revised August 16, 2021.}
+}
+
+% The paper headers
+\markboth{Journal of \LaTeX\ Class Files,~Vol.~xx, No.~xx, xxxx~20xx}%
+{Shell \MakeLowercase{\textit{et al.}}: A Sample Article Using IEEEtran.cls for IEEE Journals}
+
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2021 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+\maketitle
+
+\input {sec/abstract.tex}
+\input {sec/introduction.tex}
+\input {sec/related-work.tex}
+\input {sec/method.tex}
+\input {sec/experimental-result.tex}
+\input {sec/conclusion.tex}
+\appendices
+\input {sec/appendix.tex}
+\input {sec/bio.tex}
+
+
+
+\end{document}
+
+
+
+

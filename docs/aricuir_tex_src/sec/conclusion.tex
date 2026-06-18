@@ -1,0 +1,7 @@
+\section{Conclusion}
+In conclusion, replacing cuDNN’s dense kernels with our single-pass scatter convolution accelerates both standard (single-orientation) and rotation-invariant layers without affecting accuracy. For standard convolutions, the scatter kernel lowers memory pressure and computational load, reducing training time and energy consumption on small- and medium-sized feature maps with deep channels.
+When rotations are required it fuses all filters into one pass, yielding even larger speed-and-energy gains. Results on the Semantic Drone and plant-segmentation benchmarks confirm consistent improvements across input sizes, establishing scatter convolution as a practical drop-in upgrade for modern CNNs.
+
+\section*{Acknowledgments}
+\textcolor{black}{This work is funded by the UK Natural Environment Research Council under project FLORA-SAGE - Federated Learning Optimised for Remote Assessment of Species in Agricultural Grassland Ecosystems (grant award number UKRI053) and UKRI Digital Dairy Value-Chain for South-West Scotland and Cumbria (Strength in Places Fund) (grant award number 99890)}
+

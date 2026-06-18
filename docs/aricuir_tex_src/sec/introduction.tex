@@ -1,0 +1,42 @@
+\section{Introduction}
+\IEEEPARstart{R}{obust} 
+semantic segmentation in high‑resolution aerial images requires rotation invariance, because objects of interest—whether vegetation, buildings, vehicles, or other land‑surface features—can occur at any orientation and often contain complex fine‑scale detail. Yet the convolution operator used in mainstream deep learning segmentation architectures (e.g., U‑Net) is translation equivariant but not rotation invariant, leaving performance sensitive to object orientation. Convolution is fundamental in deep learning due to its ability to efficiently extract spatial and hierarchical features from input data \cite{cnn-survey}. Convolution layers routinely account for the bulk of total FLOPs, memory traffic, and energy use in convolution‑based networks. They therefore dominate training time and bound inference throughput, making their optimization a central focus of prior works \cite{FFT1}, \cite{winograd}, \cite{10286398}.
+
+
+These costs are further amplified when pursuing rotation‑invariant convolution, which typically requires evaluating kernels across multiple orientation samples.
+Despite the additional computational burden, achieving rotation invariance is essential for many aerial remote sensing applications—including satellite imagery \cite{satellite2,satellite3,satellite4}, UAV imaging \cite{UAV1}, and geospatial image localization \cite{geo1}—because feature extraction must remain consistent under arbitrary transformations of the target object in the image, including rotations; this need is further underscored by recent UAV studies in geology (dual-spectrum hot-spring fluid segmentation) \cite{YI2025661}, urban scene segmentation (UAVformer) \cite{YI2023109019}, and UAV visual perception (CCTseg) \cite{YI2023112612} under varying altitudes and viewpoints.
+The method in \cite{mitton2021rotation} embeds rotation equivariance into U-Net for UAV image segmentation, achieving a 7\% improvement in deforestation segmentation accuracy. 
+
+
+The extracted feature maps are rotation equivariant, i.e., feature maps
+whose outputs are rotated in a predictable way, as we rotate the input.
+A special case of equivariance is invariance \cite{harmonic-cnn}, where the output
+values of the feature map are not affected by rotations of the input. 
+In essence, the rotation invariance can be achieved by directly encoding rotation equivariance into the convolution layer followed by a global pooling operation. Multiple rotated versions of the canonical filter are applied at the same input to generate rotation equivariant feature maps. For instance, Cohen \& Welling \cite{G} propose a group convolution, code-name G-convolution, in which symmetric rotations (rotation angle is multiple of 90 degrees) are applied to the same filter, generating a rotation equivariant feature map. However, such rotation equivariant convolution introduces significant overhead on the computation. For example, with G-convolution, the computational overhead increases by 4 times compared to conventional convolution in 2D space, since four symmetric rotations are applied at each filter. The computational overhead possibly increases by 24 times in 3D space because there are 24 symmetric transformations available in 3D space \cite{CubeNet1}. The number of symmetric rotations and therefore the computational overhead increases along with increasing dimension of the input data. As reported in prior works \cite{11125636, yang2025group}, the increased number of symmetric rotations leads to substantial additional feature computations, making the training of rotation-invariant convolutional networks significantly slower than that of conventional convolutional models.
+In this paper, we show how the proposed convolution operation can be used to accelerate rotation invariant convolution by eliminating the data lowering step and exploiting filter weight sharing.
+
+
+Modern Graphics Processing Units (GPUs) play a crucial role in deep learning, providing the computational power necessary for training deep neural networks. Their parallel processing capabilities enable efficient handling of large-scale matrix operations, significantly accelerating deep learning workloads.
+Matrix multiplication is an efficient method for implementing convolution on GPU, as demonstrated by \cite{cuDNN}. 
+This requires transforming the input image into matrices that are suitable for fast multiplication.
+This transformation can be achieved by lowering the input data (im2col) with duplication.
+The GPU implementation of the proposed method in this paper is also based on fast GPU matrix multiplication, but without data lowering. 
+
+As described in the previous work \cite{manduhu2025airbornesensedetectdrones}, conventional (gather‑style) convolution accumulates contributions at each output location: every neighboring input pixel is multiplied by its corresponding kernel weight, and the results are summed into the central output position. In contrast, our scatter convolution reverses this data flow: each input pixel is multiplied by a bank of filter weights and the resulting products are scattered directly to their destination output locations. We originally introduced this formulation to support sparse convolutions on irregularly sampled LiDAR data. In this paper, we generalize the scatter approach to (i) dense, standard grid convolution and (ii) rotation‑invariant convolution. The scatter mapping removes the im2col‑style data‑lowering step typically required by matrix multiplication based implementations, reducing memory traffic and simplifying the kernel. Moreover, because the scatter mapping exposes weight sharing across symmetric rotations, intermediate results can be reused—collapsing the number of distinct multiplications to one per symmetry group and substantially lowering computational cost.
+
+
+While computational efficiency is an important consideration, achieving rotation invariance in UAV image segmentation inherently involves a trade-off between segmentation accuracy and computational efficiency. Increasing the number of modeled orientations generally improves accuracy by enhancing rotational robustness and feature expressiveness; however, this improvement comes at the cost of increased computation, memory traffic, and intermediate feature-map growth. As demonstrated in our experiments, moderate orientation resolutions (e.g., eight orientations) provide a favorable balance by significantly improving segmentation accuracy while remaining computationally feasible. In contrast, further increasing the orientation resolution leads to prohibitively large intermediate feature maps for conventional rotation-invariant implementations, making them infeasible to execute within GPU memory constraints. This work therefore focuses not only on improving computational efficiency, but also on enabling practical high-resolution rotation handling by reducing redundant computation and memory overhead, allowing finer orientation sampling under realistic GPU constraints.
+
+
+\textcolor{black}{Our main contributions are as follows:}
+\begin{itemize}
+\item \textcolor{black}{\textbf{GPU-optimized single-orientation convolution:} Since a single-orientation convolution reduces to the standard convolution, we propose an efficient GPU implementation of standard convolution using matrix multiplication without data lowering (im2col), which significantly reduces computational operations and memory access overhead.}
+
+\item \textcolor{black}{\textbf{Symmetric rotation optimization:} For symmetric rotations (90°, 180°, 270°, and 360°), we exploit data sharing via scatter operations, allowing each multiplication to be computed once and reused across all symmetric orientations.}
+
+\item \textcolor{black}{\textbf{Arbitrary rotation acceleration:} The framework is further generalized to support arbitrary rotation angles, achieving efficient convolution under continuous rotational transformations.}
+
+\item \textcolor{black}{\textbf{Comprehensive evaluation:} Integrated into a UNet model, the proposed convolution yields up to a 5.7\% improvement over the non rotation aware baseline, while achieving 20–57\% faster training and 15–45\% lower energy consumption than cuDNN across all evaluated workloads. Its efficient scatter based design also enables practical sixteen orientation convolution, providing additional gains unattainable with conventional rotation invariant methods.}
+\end{itemize}
+
+

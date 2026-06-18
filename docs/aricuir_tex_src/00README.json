@@ -1,0 +1,213 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "revised_version_1.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/mosaic/mosaic_mask.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/mosaic/mosaic_rgb.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-1/mask/DJI_20250618113819_0002.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-1/rgb/DJI_20250618113819_0002.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-2/mask/DJI_20250618113926_0063.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-2/rgb/DJI_20250618113926_0063.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-3/mask/DJI_20250618114329_0289.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "archive-version/fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-3/rgb/DJI_20250618114329_0289.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/FL_timing/infer-img-drone/drone-seg-1.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/FL_timing/infer-img-drone/drone-seg-2.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/FL_timing/infer-img-drone/drone-seg-3.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/FL_timing/infer-img-grass/grass_seg_leg.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/mosaic/mosaic_mask.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/mosaic/mosaic_rgb.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-1/mask/DJI_20250618113819_0002.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-1/rgb/DJI_20250618113819_0002.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-2/mask/DJI_20250618113926_0063.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-2/rgb/DJI_20250618113926_0063.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-3/mask/DJI_20250618114329_0289.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/SC-meeting/mosaic_barony/segmentation-rgb-mask-pair/pair-3/rgb/DJI_20250618114329_0289.JPG"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/0-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/11-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/12-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/13-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/180-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/21-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/22-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/23-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/270-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/31-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/32-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/33-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/41-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/42-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/43-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/51-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/52-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/53-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/90-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/NN-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/eq-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/reuse-shared-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/rotate-feature-map-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/scatterConvolution-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/method/standardConvolution-eps-converted-to.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/mosaic-seperate/classified_colors/black-s.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/mosaic-seperate/classified_colors/cyan-s.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/mosaic-seperate/classified_colors/limegreen-s.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/mosaic-seperate/classified_colors/magenta-s.jpg"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fig/mosaic-seperate/classified_colors/yellow-s.jpg"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

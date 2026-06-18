@@ -1,0 +1,69 @@
+\section{Related Work} \label{ref}
+
+\subsection{Segmentation of remote sensing imagery} \label{subsec:seg-rsd}
+Early semantic segmentation models were largely based on convolutional neural networks (CNNs) \cite{7789580}. A key milestone was the fully convolutional network (FCN) introduced in \cite{FCN}, which adopts an encoder–decoder architecture composed entirely of convolutional layers, without any fully connected layers. Building on this foundation, \cite{rs13234902} proposed an improved FCN framework for remote sensing image segmentation, incorporating multi-scale feature extraction, enhanced encoder–decoder connections, and refined upsampling to better handle complex, high-resolution imagery.
+To obtain larger receptive fields without lowering image resolution via downsampling, DeepLab was introduced in \cite{deeplabv1}, utilizing atrous convolutions to achieve dense, multi-scale feature extraction. The work in \cite{10608051} further improves DeepLab by aggregating multi-scale features to enhance aerial image segmentation. Many early segmentation models did not fully exploit low-level features in the decoder, resulting in the loss of fine spatial detail. U-Net \cite{ronneberger2015u} addresses this limitation by introducing skip connections that link encoder and decoder features, enabling more effective fusion of detailed and high-level information. U-Net and its variants have also been widely adopted for UAV and aerial image segmentation, as in UVid-Net for UAV video segmentation \cite{9392319} and Res-U-Net-based coastal boundary detection from high-resolution UAV imagery \cite{wang2025multi}.
+
+Attention-based architectures have also been used for aerial image segmentation. SegHSI \cite{10751785} adopts a CNN-based backbone augmented with cluster attention to model spectral–spatial correlations in hyperspectral imagery. The work in \cite{10422983} employs a Transformer–CNN hybrid encoder–decoder for UAV forestry segmentation, enabling accurate delineation of diseased pine canopies in high resolution imagery.
+
+
+\subsection{Rotation invariance in remote sensing imagery} \label{subsec:seg-rsd}
+Rotation invariance (or equivariance) is crucial for accurate object-level segmentation in UAV imagery, as targets often appear in arbitrary orientations.
+The work in \cite{isprs-annals-V-1-2022-15-2022} introduces a CNN-based framework for vehicle instance segmentation in UAV images that uses rotated bounding boxes instead of standard axis-aligned boxes to better match the true orientation of vehicles.
+The method in \cite{9466361} learns rotation-invariant deep embeddings by aligning features from multiple rotated views of the same image, enabling robust analysis of remote sensing images under arbitrary orientations. FRINet, introduced in \cite{10339376}, is built on CNN feature extractors and incorporates a rotation-adaptive matching mechanism to enable few-shot, rotation-invariant segmentation of aerial images. The paper \cite{mo2024achieving} proposes a mechanism-assured convolution that embeds rotation invariance directly into the operation itself, avoiding reliance on data augmentation and ensuring consistent feature responses under rotated inputs.
+RIC-CNN \cite{mo2024ric} achieves rotation invariance by embedding polar coordinate information into convolution operations, enabling the network to generate stable feature representations under arbitrary rotations.
+The method in \cite{mitton2021rotation} embeds rotation equivariance into UNet by using the discrete rotation group $C_8$ ($45^\circ$ increments) as the symmetry group, enabling stable feature representations that improve both deforestation segmentation and driver classification under arbitrary image orientations.
+In this paper, we introduce a computationally efficient rotation-invariant convolution and incorporate it into a U-Net architecture for semantic segmentation of UAV imagery. 
+
+\subsection{Single-orientation rotation convolution}\label{sec:dense-conv} \label{subsec:standard-conv}
+As single-orientation convolution reduces to standard convolution, we review efficient implementations of standard convolution in this section. Several FFT-based approaches \cite{FFT1,FFT2,FFT3,FFT4} have been proposed to reduce the computational cost for standard convolution on different hardware. FFT-based approaches can significantly lower the work complexity of convolution, but it is only effective for convolution with larger filters \cite{cuDNN}. 
+
+Lavin \& Gray \cite{Lavin} proposed a method based on the Winograd algorithm \cite{winograd} for convolution with small filters. The key idea of Winograd-based convolution is similar to the one based on FFT which performs multiplications in the complex domain. However, unlike FFT-based convolution, the Winograd-based convolution operates on real numbers, thus requiring fewer operations. 
+For a filter with larger size, Winograd-based convolution shows poor performance, since it needs to perform a significant amount of extra arithmetic such as additions and data transformations.
+
+To reduce the substantial memory usage in convolution with matrix multiplication, Lu \textit{et al.} \cite{lu2023im2win} proposed new data-lowering techniques. However, their method still requires data duplication. In \cite{10.5555/3213069.3213072}, Chang \textit{et al.} proposed an approach to improve memory efficiency in convolution operations by effectively utilizing the on-chip memory of GPUs. In \cite{9235051}, a matrix multiplication-based approach without data lowering is proposed. However, it requires recomputing writing positions, preventing direct pointwise operations.
+
+
+\subsection{Rotation-equivariant convolution for multi-orientation rotations} \label{subsec:rot-conv}
+A general theory of an equivariant CNN can be found in \cite{cohen2018general}. The mathematical formulation of equivariance through a weight sharing scheme is exhibited in \cite{equi-theory}.
+
+
+G-convolution \cite{G} applies a group of filters to each feature map, where each filter is a transformed version of the original filter. Two different groups are proposed in \cite{G}, code-name $p4$ group and $p4m$ group. The $p4$ group consists of 4 filters where each filter is obtained by rotating the original filter by 0 degrees, 90 degrees, 180 degrees and 270 degrees, respectively. The $p4m$ group consists of 8 filters which are obtained by combining $p4$ group and reflection transformations. The convolution with $p4$ group or $p4m$ group will increase the computational overhead by 4 or 8 times. 
+There are multiple works \cite{CubeNet1, CubeNet2} applying the G-convolution on 3D volume data. In \cite{CubeNet1}, different groups code-name \textit{Cube Group}, \textit{Klein's Four-group} and \textit{Tetrahedral Group} are proposed. Among these groups, the largest group is the \textit{Cube Group} which consists of 24 filters resulting in an increase of computational overhead by 24 times. Obviously, the number of filters in a group will increase along with increasing dimension of the input data and therefore the computational overhead. 
+Hexagonal group convolution \cite{hexa} rotates a filter by any multiple of 60 degrees, without interpolation. They define the following two hexagonal group convolutions: groups $p6$ and $p6m$, which contain integer translations (orientation cycling), rotations with multiples of 60 degrees, and mirroring for $p6m$. The paper \cite{G-cnn10} proposes Gauge-equivariant convolutional network for manifolds, which uses Hexagonal group convolution to implement the weight sharing scheme for Gauge-equivariant. 
+The work in \cite{shallowNet}
+proposes a shallow network which
+performs convolution with rotated versions
+of each canonical filter, where the rotation is with arbitrary angle.
+The convolution is followed by a global pooling over orientations.
+The number of rotations applied is 32 i.e. the angle increment between 
+successive two rotations is $\frac{\pi}{16}$.
+Bicubic interpolation is used for sampling after rotation.
+
+
+Oriented Response Network (ORN) \cite{orn} introduces active rotating filters that generate orientation-aware feature maps, allowing CNNs to model rotations explicitly and achieve rotation invariance or equivariance without heavy data augmentation.
+The work in \cite{e2cnn} provides a unified framework for designing steerable CNNs that are equivariant to all
+$E(2)$ transformations and offers the widely used E2CNN library for generating rotation-equivariant features.
+
+Filters with steerability can be
+reconstructed at any orientation as a finite, linear combination of base
+filters. This eliminates the need to learn multiple filters at different
+orientations.
+Harmonic Network proposed in \cite{harmonic-cnn} 
+achieves rotation equivariance in continuous rotations by  
+learning coefficients of base filters, where
+these base filters are used to form the filters (steerable) of the CNN model.
+In the network proposed in \cite{G-cnn7},
+rotation equivariance is guaranteed by using 
+the G-convolution in which the number of rotation is more than four.
+The rotated filter (steerable) in a group is constructed by manipulating coefficients of the base filter. 
+In this way, it avoids the use of interpolation which usually introduces artifacts in the rotated filter.  
+The network shown in \cite{gabor} achieves rotation equivariance by multiplying each convolutional filter by 
+several oriented Gabor filters \cite{weldon1996efficient}. In the back propagation stage, only the convolutional filters are updated.
+The method in \cite{cheng2018rotdcf} reduces the number of parameters and computational complexity of rotation-equivariant
+CNNs by decomposing convolutional filters (steerable) under joint
+steerable bases over space and rotations simultaneously. Meanwhile, the performance is preserved. 
+
+Rotation equivariance typically leads to a rapid increase in feature dimensionality as the number of sampled orientations grows. To tackle this problem of exploding dimensionality, a rotation equivariant convolution is usually followed by an orientation pooling operation, after which the layer becomes rotation invariant. The orientation pooling can be implemented in two different ways: point-wise average pooling \cite{featureTrans} or point-wise max pooling \cite{shallowNet}.
+
+In this paper, we describe how our proposed convolution operation is applied to accelerate a rotation invariant convolution layer, which combines symmetric rotation and steerable transformations. 
