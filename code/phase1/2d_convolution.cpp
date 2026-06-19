@@ -1,6 +1,9 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <cmath>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 /**
  * @brief 滑动窗口卷积实现
@@ -36,8 +39,12 @@ void conv2d_manual(const cv::Mat& input, const cv::Mat& kernel, cv::Mat& output)
 }
 
 int main() {
+    // 通过 __FILE__ 获取源文件所在目录，拼接图片绝对路径
+    fs::path src_dir = fs::path(__FILE__).parent_path();
+    fs::path img_path = src_dir / "test_image.png";
+
     // 读取为单通道灰度图
-    cv::Mat img = cv::imread("phase1/test_image.png", cv::IMREAD_GRAYSCALE);
+    cv::Mat img = cv::imread(img_path.string(), cv::IMREAD_GRAYSCALE);
     // 检查图片是否加载成功
     if (img.empty()) {
         std::cerr << "Failed to load image\n";
