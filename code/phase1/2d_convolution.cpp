@@ -81,5 +81,15 @@ int main() {
         std::cout << "FAIL: outputs differ\n";
     }
 
+    // 将浮点结果转回 8 位用于显示（取绝对值，因为 Sobel 输出有负值）
+    cv::Mat manual_show, opencv_show;
+    cv::convertScaleAbs(manual_out, manual_show);
+    cv::convertScaleAbs(opencv_cropped, opencv_show);
+
+    cv::imshow("Original", img);
+    cv::imshow("Manual Conv", manual_show);
+    cv::imshow("OpenCV Conv", opencv_show);
+    cv::waitKey(0);
+
     return 0;
 }
