@@ -20,3 +20,34 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aricuic"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort (导入排序)
+    "B",   # flake8-bugbear (潜在 bug 检测)
+    "UP",  # pyupgrade (自动升级旧式 Python 语法)
+    "N",   # pep8-naming (命名规范)
+    "SIM", # flake8-simplify (简化代码)
+]
+ignore = [
+    "E501", # 忽略行超长警告（格式化会自动处理）
+    "B008", # 允许在函数默认参数中使用函数调用
+]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
