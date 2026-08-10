@@ -10,7 +10,9 @@ from aricuic.visualization.plotting import save_figure
 def main() -> None:
     image = np.arange(1, 17, dtype=np.float64).reshape(4, 4)
     columns = im2col(image, 3, 3)
-    input_elements, column_elements, duplication_factor = duplication_stats(image, 3, 3)
+    input_elements, column_elements, duplication_factor = duplication_stats(
+        image, 3, 3
+    )
 
     print("Input matrix (4x4):")
     print(image)
@@ -28,11 +30,16 @@ def main() -> None:
     for row, col in positions:
         print(f"  col_matrix[{row}][{col}]")
 
-    fig, ax = plt.subplots(figsize=(8, 4))
-    ax.imshow(columns, cmap="viridis")
-    ax.set_title("im2col matrix")
-    ax.set_xlabel("Window index")
-    ax.set_ylabel("Flattened patch index")
+    fig, (original_ax, im2col_ax) = plt.subplots(1, 2, figsize=(8, 4))
+    original_ax.imshow(image, cmap="viridis")
+    original_ax.set_title("Original image")
+    original_ax.set_xlabel("Column")
+    original_ax.set_ylabel("Row")
+
+    im2col_ax.imshow(columns, cmap="viridis", aspect="auto")
+    im2col_ax.set_title("im2col output")
+    im2col_ax.set_xlabel("Flattened patch index")
+    im2col_ax.set_ylabel("Patch row")
     fig.tight_layout()
     save_figure(fig, "example_02_im2col.png")
     plt.close(fig)
