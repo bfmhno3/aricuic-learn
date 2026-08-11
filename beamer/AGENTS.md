@@ -52,6 +52,7 @@ This project is a subdirectory of `aricuic-lean` for creating presentation slide
 - Use `\input` to import content from `contents/` and `settings/` into `main.tex`.
 - Do not add content, import packages, or modify styles directly in `main.tex`.
 - Do not use indentation in `.tex` files.
+- Keep special commands such as `\maketitle` and `\QApage` in `main.tex`.
 
 ### `collegebeamer.sty` template usage
 
