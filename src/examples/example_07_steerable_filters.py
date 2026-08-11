@@ -17,7 +17,7 @@ from aricuic.visualization.plotting import save_figure
 
 
 def _load_image() -> np.ndarray:
-    image_path = Path("code/phase1/test_image.png")
+    image_path = Path("resources/test_image.png")
     if image_path.exists():
         return np.array(Image.open(image_path).convert("L"), dtype=np.float64)
     rng = np.random.default_rng(3)

@@ -20,7 +20,7 @@ from aricuic.visualization.plotting import (
 
 
 def _load_image() -> np.ndarray:
-    image_path = Path("code/phase1/test_image.png")
+    image_path = Path("resources/test_image.png")
     if image_path.exists():
         image = np.array(Image.open(image_path).convert("L"), dtype=np.float64)
         if image.shape[0] < 512 or image.shape[1] < 512:
