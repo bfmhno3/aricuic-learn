@@ -44,7 +44,10 @@ def conv2d_naive(input_array: np.ndarray, kernel: np.ndarray) -> np.ndarray:
                     for ci in range(cin):
                         for i in range(kh):
                             for j in range(kw):
-                                total += kernel[co, ci, i, j] * input_array[ci, h + i, w + j]
+                                total += (
+                                    kernel[co, ci, i, j]
+                                    * input_array[ci, h + i, w + j]
+                                )
                     output[co, h, w] = total
         return output
 

@@ -61,7 +61,9 @@ def conv2d_im2col(input_array: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     )
 
 
-def duplication_stats(input_array: np.ndarray, kh: int, kw: int) -> tuple[int, int, float]:
+def duplication_stats(
+    input_array: np.ndarray, kh: int, kw: int
+) -> tuple[int, int, float]:
     """Return input size, column matrix size, and duplication factor."""
     input_array = np.asarray(input_array)
     input_elements = input_array.size

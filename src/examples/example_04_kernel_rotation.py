@@ -50,7 +50,11 @@ def main() -> None:
     for ax in axes.flat:
         ax.axis("off")
     fig.tight_layout()
-    fig.savefig("results/figures/example_04_kernel_rotation.png", dpi=150, bbox_inches="tight")
+    fig.savefig(
+        "results/figures/example_04_kernel_rotation.png",
+        dpi=150,
+        bbox_inches="tight",
+    )
     plt.close(fig)
 
 

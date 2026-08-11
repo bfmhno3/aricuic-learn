@@ -30,7 +30,9 @@ def conv2d_scatter(input_array: np.ndarray, kernel: np.ndarray) -> np.ndarray:
                     kernel_h = h - out_h
                     for out_w in range(out_w_start, out_w_stop):
                         kernel_w = w - out_w
-                        output[out_h, out_w] += value * kernel[kernel_h, kernel_w]
+                        output[out_h, out_w] += (
+                            value * kernel[kernel_h, kernel_w]
+                        )
         return output
 
     if input_array.ndim == 3 and kernel.ndim == 4:

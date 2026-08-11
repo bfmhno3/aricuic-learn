@@ -33,7 +33,13 @@ def _load_image() -> np.ndarray:
 def main() -> None:
     image = _load_image()
     kernel = np.array(
-        [[1, 4, 6, 4, 1], [4, 16, 24, 16, 4], [6, 24, 36, 24, 6], [4, 16, 24, 16, 4], [1, 4, 6, 4, 1]],
+        [
+            [1, 4, 6, 4, 1],
+            [4, 16, 24, 16, 4],
+            [6, 24, 36, 24, 6],
+            [4, 16, 24, 16, 4],
+            [1, 4, 6, 4, 1],
+        ],
         dtype=np.float64,
     )
     kernel /= kernel.sum()
@@ -62,18 +68,31 @@ def main() -> None:
     naive_mean = float(np.mean(naive_times))
     optimized_mean = float(np.mean(optimized_times))
     speedup = naive_mean / optimized_mean if optimized_mean else float("inf")
-    print(f"Naive: {naive_mean:.2f}s, Optimized: {optimized_mean:.2f}s, Speedup: {speedup:.2f}x")
+    print(
+        f"Naive: {naive_mean:.2f}s, Optimized: {optimized_mean:.2f}s, Speedup: {speedup:.2f}x"
+    )
 
-    plot_timing_comparison(["Naive", "Optimized"], [naive_mean, optimized_mean], [speedup])
-    plot_p4_orientations(p4_orientation_maps_naive(image, kernel))
-    plot_p4_orientations(p4_orientation_maps_scatter_optimized(image, kernel))
+    plot_timing_comparison(
+        ["Naive", "Optimized"], [naive_mean, optimized_mean], [speedup]
+    )
+    plot_p4_orientations(
+        p4_orientation_maps_naive(image, kernel), "p4_orientations_naive.png"
+    )
+    plot_p4_orientations(
+        p4_orientation_maps_scatter_optimized(image, kernel),
+        "p4_orientations_optimized.png",
+    )
 
     fig, ax = plt.subplots(figsize=(6, 4))
     ax.imshow(naive, cmap="viridis")
     ax.set_title("P4 pooled response")
     ax.axis("off")
     fig.tight_layout()
-    fig.savefig("results/figures/example_05_p4_comparison.png", dpi=150, bbox_inches="tight")
+    fig.savefig(
+        "results/figures/example_05_p4_comparison.png",
+        dpi=150,
+        bbox_inches="tight",
+    )
     plt.close(fig)
 
 

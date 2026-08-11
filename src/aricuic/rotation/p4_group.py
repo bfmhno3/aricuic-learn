@@ -6,7 +6,9 @@ from aricuic.convolution.scatter import conv2d_scatter
 from aricuic.rotation.transforms import get_p4_rotations
 
 
-def _pool_orientations(orientations: list[np.ndarray], pooling: str) -> np.ndarray:
+def _pool_orientations(
+    orientations: list[np.ndarray], pooling: str
+) -> np.ndarray:
     stack = np.stack(orientations, axis=0)
     if pooling == "max":
         return np.max(stack, axis=0)
@@ -15,9 +17,14 @@ def _pool_orientations(orientations: list[np.ndarray], pooling: str) -> np.ndarr
     raise ValueError("pooling must be 'max' or 'avg'")
 
 
-def p4_orientation_maps_naive(input_array: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+def p4_orientation_maps_naive(
+    input_array: np.ndarray, kernel: np.ndarray
+) -> np.ndarray:
     """Return the four orientation feature maps before pooling."""
-    orientations = [conv2d_scatter(input_array, rotated) for rotated in get_p4_rotations(kernel)]
+    orientations = [
+        conv2d_scatter(input_array, rotated)
+        for rotated in get_p4_rotations(kernel)
+    ]
     return np.stack(orientations, axis=0)
 
 
@@ -25,7 +32,9 @@ def p4_conv_naive(
     input_array: np.ndarray, kernel: np.ndarray, pooling: str = "max"
 ) -> np.ndarray:
     """Apply the four rotated kernels independently, then pool orientation channels."""
-    return _pool_orientations(list(p4_orientation_maps_naive(input_array, kernel)), pooling)
+    return _pool_orientations(
+        list(p4_orientation_maps_naive(input_array, kernel)), pooling
+    )
 
 
 def p4_orientation_maps_scatter_optimized(
@@ -36,7 +45,9 @@ def p4_orientation_maps_scatter_optimized(
     kernel = np.asarray(kernel, dtype=np.float64)
 
     if input_array.ndim != 2 or kernel.ndim != 2:
-        raise ValueError("optimized p4 implementation expects 2D input and 2D kernel")
+        raise ValueError(
+            "optimized p4 implementation expects 2D input and 2D kernel"
+        )
 
     kh, kw = kernel.shape
     h_out = input_array.shape[0] - kh + 1
@@ -54,10 +65,18 @@ def p4_orientation_maps_scatter_optimized(
                 offset_h = h - out_h
                 for out_w in range(out_w_start, out_w_stop):
                     offset_w = w - out_w
-                    orientations[0, out_h, out_w] += value * kernel[offset_h, offset_w]
-                    orientations[1, out_h, out_w] += value * kernel[offset_w, kw - 1 - offset_h]
-                    orientations[2, out_h, out_w] += value * kernel[kh - 1 - offset_h, kw - 1 - offset_w]
-                    orientations[3, out_h, out_w] += value * kernel[kh - 1 - offset_w, offset_h]
+                    orientations[0, out_h, out_w] += (
+                        value * kernel[offset_h, offset_w]
+                    )
+                    orientations[1, out_h, out_w] += (
+                        value * kernel[offset_w, kw - 1 - offset_h]
+                    )
+                    orientations[2, out_h, out_w] += (
+                        value * kernel[kh - 1 - offset_h, kw - 1 - offset_w]
+                    )
+                    orientations[3, out_h, out_w] += (
+                        value * kernel[kh - 1 - offset_w, offset_h]
+                    )
     return orientations
 
 

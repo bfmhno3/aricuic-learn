@@ -50,10 +50,16 @@ def main() -> None:
     ax2.set_title("Interpolation-based rotation response")
     ax2.axis("off")
     fig2.tight_layout()
-    fig2.savefig("results/figures/example_07_interpolated_response.png", dpi=150, bbox_inches="tight")
+    fig2.savefig(
+        "results/figures/example_07_interpolated_response.png",
+        dpi=150,
+        bbox_inches="tight",
+    )
     plt.close(fig2)
 
-    print("Steerable method produces smooth angular responses without artifacts")
+    print(
+        "Steerable method produces smooth angular responses without artifacts"
+    )
     print("Compared with interpolation-based rotation for visual inspection")
 
 

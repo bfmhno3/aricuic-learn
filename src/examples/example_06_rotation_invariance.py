@@ -27,7 +27,13 @@ def main() -> None:
     image = _load_image()
     angles = [0, 30, 45, 60, 90, 135, 180, 270]
     kernel = np.array(
-        [[1, 4, 6, 4, 1], [4, 16, 24, 16, 4], [6, 24, 36, 24, 6], [4, 16, 24, 16, 4], [1, 4, 6, 4, 1]],
+        [
+            [1, 4, 6, 4, 1],
+            [4, 16, 24, 16, 4],
+            [6, 24, 36, 24, 6],
+            [4, 16, 24, 16, 4],
+            [1, 4, 6, 4, 1],
+        ],
         dtype=np.float64,
     )
     kernel /= kernel.sum()
@@ -35,10 +41,17 @@ def main() -> None:
     results = []
     magnitudes = []
     for angle in angles:
-        rotated = ndimage.rotate(image, angle=angle, reshape=False, order=1, mode="constant", cval=0.0)
+        rotated = ndimage.rotate(
+            image,
+            angle=angle,
+            reshape=False,
+            order=1,
+            mode="constant",
+            cval=0.0,
+        )
         response = p4_conv_scatter_optimized(rotated, kernel, pooling="max")
         results.append(response)
-        magnitudes.append(float(np.sqrt(np.mean(response ** 2))))
+        magnitudes.append(float(np.sqrt(np.mean(response**2))))
 
     magnitudes = np.asarray(magnitudes)
     cv = float(magnitudes.std() / magnitudes.mean())
@@ -55,7 +68,11 @@ def main() -> None:
     ax.set_title("P4 pooled response stability")
     ax.grid(True, alpha=0.3)
     fig.tight_layout()
-    fig.savefig("results/figures/example_06_invariance_plot.png", dpi=150, bbox_inches="tight")
+    fig.savefig(
+        "results/figures/example_06_invariance_plot.png",
+        dpi=150,
+        bbox_inches="tight",
+    )
     plt.close(fig)
 
 

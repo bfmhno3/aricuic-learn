@@ -21,9 +21,9 @@ def create_steerable_basis(ksize: int) -> tuple[np.ndarray, np.ndarray]:
 def steer_filter(fx: np.ndarray, fy: np.ndarray, angle: float) -> np.ndarray:
     """Interpolate basis filters using the paper's steering equation."""
     theta = math.radians(angle)
-    return np.sin(theta) * np.asarray(fx, dtype=np.float64) + np.cos(theta) * np.asarray(
-        fy, dtype=np.float64
-    )
+    return np.sin(theta) * np.asarray(fx, dtype=np.float64) + np.cos(
+        theta
+    ) * np.asarray(fy, dtype=np.float64)
 
 
 def arbitrary_rotation_conv(
@@ -53,7 +53,9 @@ def arbitrary_rotation_conv(
     return results
 
 
-def rotated_kernel_with_interpolation(kernel: np.ndarray, angle: float) -> np.ndarray:
+def rotated_kernel_with_interpolation(
+    kernel: np.ndarray, angle: float
+) -> np.ndarray:
     """Rotate a kernel by interpolation for visual comparison."""
     return ndimage.rotate(
         np.asarray(kernel, dtype=np.float64),

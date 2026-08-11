@@ -25,7 +25,10 @@ def _reshape_axes(axes: np.ndarray, rows: int, cols: int) -> np.ndarray:
 
 
 def plot_convolution_comparison(
-    image: np.ndarray, kernels: list[np.ndarray], results: list[np.ndarray], titles: list[str]
+    image: np.ndarray,
+    kernels: list[np.ndarray],
+    results: list[np.ndarray],
+    titles: list[str],
 ) -> None:
     """Show the source image, kernels, and resulting feature maps."""
     cols = max(1, len(results))
@@ -50,7 +53,10 @@ def plot_rotation_invariance_test(
     image: np.ndarray, angles: list[float], results: list[np.ndarray]
 ) -> None:
     """Plot responses over angle and show rotated inputs."""
-    magnitudes = [float(np.sqrt(np.mean(np.asarray(result, dtype=np.float64) ** 2))) for result in results]
+    magnitudes = [
+        float(np.sqrt(np.mean(np.asarray(result, dtype=np.float64) ** 2)))
+        for result in results
+    ]
     cols = max(1, len(angles))
     fig, axes = plt.subplots(2, cols, figsize=(3 * cols, 6))
     axes = _reshape_axes(axes, 2, cols)
@@ -62,7 +68,9 @@ def plot_rotation_invariance_test(
         axes[1, idx].axis("off")
     fig.tight_layout()
     ensure_results_dir()
-    fig.savefig(RESULT_DIR / "invariance_grid.png", dpi=150, bbox_inches="tight")
+    fig.savefig(
+        RESULT_DIR / "invariance_grid.png", dpi=150, bbox_inches="tight"
+    )
     plt.close(fig)
 
     fig2, ax2 = plt.subplots(figsize=(8, 4))
@@ -79,7 +87,9 @@ def plot_kernel_rotations(
     kernel: np.ndarray, rotations: list[np.ndarray], angles: list[float]
 ) -> None:
     """Display one kernel and its rotated variants."""
-    fig, axes = plt.subplots(1, len(rotations) + 1, figsize=(3 * (len(rotations) + 1), 3))
+    fig, axes = plt.subplots(
+        1, len(rotations) + 1, figsize=(3 * (len(rotations) + 1), 3)
+    )
     axes = np.atleast_1d(axes)
     axes[0].imshow(np.asarray(kernel), cmap="gray")
     axes[0].set_title("0°")
@@ -98,7 +108,11 @@ def plot_timing_comparison(
 ) -> None:
     """Plot method timings and optional speedup annotations."""
     fig, ax = plt.subplots(figsize=(8, 4))
-    bars = ax.bar(methods, times, color=["#4C78A8", "#F58518", "#54A24B", "#E45756"][: len(methods)])
+    bars = ax.bar(
+        methods,
+        times,
+        color=["#4C78A8", "#F58518", "#54A24B", "#E45756"][: len(methods)],
+    )
     ax.set_ylabel("Seconds")
     ax.set_title("Timing comparison")
     for bar, time_value in zip(bars, times, strict=False):
@@ -117,15 +131,19 @@ def plot_timing_comparison(
     plt.close(fig)
 
 
-def plot_p4_orientations(orientation_maps: np.ndarray) -> None:
+def plot_p4_orientations(
+    orientation_maps: np.ndarray, name: str = "p4_orientations.png"
+) -> None:
     """Show the four orientation channels before pooling."""
     orientation_maps = np.asarray(orientation_maps)
-    fig, axes = plt.subplots(1, orientation_maps.shape[0], figsize=(4 * orientation_maps.shape[0], 4))
+    fig, axes = plt.subplots(
+        1, orientation_maps.shape[0], figsize=(4 * orientation_maps.shape[0], 4)
+    )
     axes = np.atleast_1d(axes)
     for idx, ax in enumerate(axes):
         ax.imshow(orientation_maps[idx], cmap="viridis")
         ax.set_title(f"Orientation {idx}")
         ax.axis("off")
     fig.tight_layout()
-    save_figure(fig, "p4_orientations.png")
+    save_figure(fig, name)
     plt.close(fig)

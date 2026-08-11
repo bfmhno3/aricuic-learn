@@ -49,8 +49,12 @@ def main() -> None:
     print(f"Scatter time: {np.mean(scatter_times) * 1000:.2f}ms")
 
     fig, ax = plt.subplots(figsize=(6, 4))
-    ax.text(0.1, 0.7, "Gather: output pixel pulls from input patch", fontsize=12)
-    ax.text(0.1, 0.4, "Scatter: input pixel pushes to output locations", fontsize=12)
+    ax.text(
+        0.1, 0.7, "Gather: output pixel pulls from input patch", fontsize=12
+    )
+    ax.text(
+        0.1, 0.4, "Scatter: input pixel pushes to output locations", fontsize=12
+    )
     ax.set_axis_off()
     fig.tight_layout()
     save_figure(fig, "example_03_dataflow.png")
